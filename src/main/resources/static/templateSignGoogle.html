@@ -1,10 +1,50 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
+
 <head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=1.0, minimum-scale=1.0">
+    <title>Sign in</title>
+    <!-- Google -->
+    <meta name="google-signin-scope" content="profile email">
+    <meta name="google-signin-client_id"
+          content="431681257434-1makcgok3vs3tnivthtvcbnt2fcc1aul.apps.googleusercontent.com">
 </head>
+
 <body>
-$END$
+<div id="my-signin2"></div>
 </body>
+
+<script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>
+<script>
+    function onSignIn(googleUser) {
+        var id_token = googleUser.getAuthResponse().id_token;
+        var api = "http://localhost:8090/spring-security/google-authenticate";
+        var option = {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                token : id_token
+            })
+        }
+        fetch(api, option)
+            .then(response => response.json())
+            .then(result => console.log(result))
+            .catch(error => console.log(error));
+    }
+
+    function renderButton() {
+        gapi.signin2.render('my-signin2', {
+            'scope': 'profile email',
+            'width': 240,
+            'height': 50,
+            'longtitle': true,
+            'theme': 'dark',
+            'onsuccess': onSignIn
+        });
+    }
+</script>
+
 </html>

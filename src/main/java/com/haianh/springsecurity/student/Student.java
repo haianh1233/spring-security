@@ -3,8 +3,7 @@ package com.haianh.springsecurity.student;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
@@ -13,7 +12,10 @@ import java.io.Serializable;
 public class Student implements Serializable {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "seq")
+    @SequenceGenerator(name="seq", initialValue=5, allocationSize=1)
     private int id;
+    @Column(name = "name", unique = true)
     private String name;
     private String email;
     private String role;
