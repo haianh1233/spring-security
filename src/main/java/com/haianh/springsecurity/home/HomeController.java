@@ -62,8 +62,9 @@ public class HomeController {
     }
 
     @GetMapping("/user")
-    public String user() {
-        return ("<h1>Welcome user </h1>");
+    public ResponseEntity<?> user() {
+        ResponseEntity res = ResponseEntity.ok().body("<h1>Welcome user </h1>");
+        return res;
     }
 
     @GetMapping("/admin")
@@ -148,7 +149,7 @@ public class HomeController {
         }
 
         if(jwt != null )
-            t = ResponseEntity.ok().header(AUTHORIZATION, jwtConfig.getTokenPrefix() + " " + jwt).build();
+            t = ResponseEntity.ok(new AuthenticationResponse(jwt));
         else
             t = ResponseEntity.notFound().build();
         return t;
