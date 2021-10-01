@@ -41,7 +41,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         http
                 .csrf().disable()
                 .authorizeRequests()
-                .antMatchers(POST,"/authenticate" , "/google-authenticate").permitAll()
+                .antMatchers(POST,"/authentication" , "/authentication/google").permitAll()
                 .antMatchers(GET,  "/templateSignGoogle.html").permitAll()
                 .antMatchers("/admin").hasAnyAuthority("ADMIN")
                 .antMatchers("/user").hasAnyAuthority("ADMIN", "USER")

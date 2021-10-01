@@ -72,7 +72,7 @@ public class HomeController {
         return ("<h1>Welcome admin </h1>");
     }
 
-    @PostMapping("/authenticate")
+    @PostMapping("/authentication")
     public ResponseEntity<?> createAuthenticationToken(@RequestBody AuthenticationRequest authenticationRequest) throws BadCredentialsException {
         try {
             authenticationManager.authenticate(
@@ -87,7 +87,7 @@ public class HomeController {
         return ResponseEntity.ok(new AuthenticationResponse(jwt));
     }
 
-    @PostMapping("/google-authenticate")
+    @PostMapping("/authentication/google")
     public ResponseEntity<?> createAuthenticationToken(@RequestBody GoogleAuthenticationRequest authenticationRequest) throws GeneralSecurityException, IOException {
         NetHttpTransport transport = new NetHttpTransport();
         JsonFactory jsonFactory = new GsonFactory();
@@ -147,11 +147,7 @@ public class HomeController {
                 System.out.println("Create new student and return token");
             }
         }
-
-        if(jwt != null )
             t = ResponseEntity.ok(new AuthenticationResponse(jwt));
-        else
-            t = ResponseEntity.notFound().build();
         return t;
     }
 }

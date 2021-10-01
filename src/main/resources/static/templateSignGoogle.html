@@ -19,7 +19,7 @@
 <script>
     function onSignIn(googleUser) {
         var id_token = googleUser.getAuthResponse().id_token;
-        var api = "http://localhost:8090/spring-security/google-authenticate";
+        var api = "http://localhost:8090/spring-security/google-authentication/google";
         var option = {
             method: "POST",
             headers: {
